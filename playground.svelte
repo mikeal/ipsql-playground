@@ -94,18 +94,11 @@ error {
       </Button>
     </Content>
   </Paper>
-
-  <Paper square class="paper-demo">
-     <Title>Example:</Title>
-     <Content>Example: <code>CREATE TABLE People (Age INT, Name: VARCHAR(256))<code></Content>
-  </Paper>
-
   <Paper square>
     <Title>Supported Grammar</Title>
 <Content>
 <pre>
 - CREATE
-  - [ ] DATABASE (it isn't clear how we would want to implement and support this yet)
   - TABLE
     - [x] INTEGER
     - [x] VARCHAR(size)
@@ -113,12 +106,8 @@ error {
     - [ ] DATE
     - [ ] TIME
     - [ ] DATETIME
-    - [ ] BLOB (should use the FBL, values smaller than 32b will be inline binary, below 1MB should
-                be a single raw block link, anything else is a full tree FBL as a stream)
-    - [ ] TEXT (may never support, according to spec this is upt 2GB of string data so it's hard
-                to figure out what the inline vs linking rules would be. Instead, using VARCHAR
-                as the inlined string and BLOB the *probably* linked type)
-    - [ ] BOOLEAN (this isn't actually supported in the SQL parser we use, must be quite rare)
+    - [ ] BLOB
+    - [ ] TEXT
 - [ ] ALTER TABLE
 - INSERT
   - [x] ROWS `INSERT INTO table_name VALUES ( 'test' )`
@@ -157,6 +146,9 @@ error {
   - [ ] GROUP BY
   - [ ] HAVING
   - [ ] UNION
+
+This project is still an alpha. Some complex expression may not work and it's currentl limited
+to a single expression at a time.
 </pre>
 </Content>
 
