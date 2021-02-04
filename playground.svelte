@@ -1,4 +1,5 @@
 <script>
+  import Paper, {Title, Subtitle, Content} from '@smui/paper'
   import Button, {Label} from '@smui/button'
   import Textfield from '@smui/textfield'
   import DataTable, {Head, Body, Row, Cell} from '@smui/data-table'
@@ -39,6 +40,7 @@
     return run()
   }
   let runSQL = () => {
+    error = null
     _runSQL().catch(e => { error = e })
   }
 </script>
@@ -55,7 +57,7 @@ error {
     <Body>
     {#each transactions as trans}
       <Row>
-        <Cell>{ trans.sql } on { trans.db ? trans.db.toString().slice(0, 12) + '...' : null }</Cell>
+        <Cell><code>{ trans.sql }</code> on { trans.db ? trans.db.toString().slice(0, 12) + '...' : null }</Cell>
         <Cell>(BlockWrites: { trans.writes })</Cell>
       </Row>
       {#if trans.result}
@@ -74,16 +76,6 @@ error {
       </Row>
       {/if}
     {/each}
-      <Row>
-        <Cell>
-          <Textfield bind:value={sqlStatement} label="Enter SQL Statement" />
-        </Cell>
-        <Cell>
-          <Button on:click={runSQL}>
-            <Label>Run</Label>
-          </Button>
-        </Cell>
-      </Row>
     </Body>
   </DataTable>
   {#if error}
@@ -92,4 +84,20 @@ error {
     <pre>{error.stack}</pre>
   </error>
   {/if}
+
+  <Paper square class="paper-demo">
+    <Title>Execute SQL statement</Title>
+    <Content>
+      <Textfield fullwidth textarea bind:value={sqlStatement} label="Enter SQL Statement" />
+      <Button on:click={runSQL}>
+        <Label>Run</Label>
+      </Button>
+    </Content>
+  </Paper>
+
+  <Paper square class="paper-demo">
+     <Title>Example:</Title>
+     <Content>Example: <code>CREATE TABLE People (Age INT, Name: VARCHAR(256))<code></Content>
+  </Paper>
+
 </ipsql-docs>
