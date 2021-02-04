@@ -8,7 +8,7 @@
   console.log(IPSQL)
   let ipsql = IPSQL.headless()
   export let statements = [
-    'CREATE TABLE playground (id INT, text: VARCHAR(256))',
+    'CREATE TABLE playground (id INT, text VARCHAR(256))',
     'INSERT INTO playground VALUES (10, "hello world"), (20, "world hello")',
     'SELECT * from playground'
   ]
